@@ -38,10 +38,8 @@ class XactionConsumer:
             print()
             with self.engine.connect() as con:
                 with con.begin():
-                    con.execute("INSERT INTO consumerZipbank (custid, type, amt) VALUES (int(message['custid']),"
-                                " str(message['type']), int(message['amt'])")
-
-
+                    con.execute("INSERT INTO transaction (custid, type, amt) VALUES (%s, %s, %s)",
+                                (int(message['custid']), str(message['type']), int(message['amt'])))
 
 
 
@@ -60,5 +58,5 @@ class XactionConsumer:
 if __name__ == "__main__":
     c = XactionConsumer()
     c.handleMessages()
-   
+    # t = Transaction()
 

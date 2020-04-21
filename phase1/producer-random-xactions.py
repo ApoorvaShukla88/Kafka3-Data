@@ -30,6 +30,13 @@ class Producer:
             sleep(1)
 
 
+    def zipbank_branch(self):
+        data = {'branchid': random.randint(100, 110)
+                
+        }
+
+
+
 if __name__ == "__main__":
     p = Producer()
     p.generateRandomXactions(n=20)
