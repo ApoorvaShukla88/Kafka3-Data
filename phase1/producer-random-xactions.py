@@ -6,10 +6,13 @@ import random
 
 
 
+partitioner = branchPartitioner(partitions=[TopicPartition(topic='bank-customer-new', partition=10)])
+
 class Producer:
     def __init__(self):
         self.producer = KafkaProducer(bootstrap_servers=['localhost:9092'],
-                                      value_serializer=lambda m: dumps(m).encode('ascii'))
+                                      value_serializer=lambda m: dumps(m).encode('ascii'),
+                                      partitioner=partitioner)
 
     def emit(self, cust=55, type="dep"):
         data = {'custid': random.randint(50, 56),
@@ -32,7 +35,7 @@ class Producer:
 
     def zipbank_branch(self):
         data = {'branchid': random.randint(100, 110)
-                
+
         }
 
 
