@@ -8,10 +8,8 @@ class XactionConsumer:
         self.consumer = KafkaConsumer('bank-customer-events',
                                       bootstrap_servers=['localhost:9092'],
                                       # auto_offset_reset='earliest',
-                                      value_deserializer=lambda m: loads(m.decode('ascii')),
-                                      PartitionKeyStrategy=[branchPartitioner],
-                                      auto_offset_reset="earliest"
-        )
+                                      value_deserializer=lambda m: loads(m.decode('ascii')))
+
         ## These are two python dictionarys
         # Ledger is the one where all the transaction get posted
         self.ledger = {}
@@ -62,5 +60,5 @@ class XactionConsumer:
 if __name__ == "__main__":
     c = XactionConsumer()
     c.handleMessages()
-    # t = Transaction()
+
 
