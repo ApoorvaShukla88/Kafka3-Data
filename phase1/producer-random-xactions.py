@@ -5,9 +5,6 @@ import time
 import random
 
 
-
-
-
 class Producer:
     def __init__(self):
         self.producer = KafkaProducer(bootstrap_servers=['localhost:9092'],
@@ -24,19 +21,17 @@ class Producer:
     def depOrWth(self):
         return 'dep' if (random.randint(0, 2) == 0) else 'wth'
 
-    def generateRandomXactions(self, n=1000):
-        for _ in range(n):
-            data = self.emit()
-            print('sent', data)
-            self.producer.send('bank-customer-events', value=data, partition=1)
-            sleep(1)
-
-
-
+    def generateRandomXactions(self, n):
+        #for _ in range(n):
+        data = self.emit()
+        print('sent', data)
+        self.producer.send('bank-customer-test', value=data, partition=n)
+        sleep(1)
 
 
 if __name__ == "__main__":
     p = Producer()
-    p.generateRandomXactions(n=20)
+    for n in range(0, 5):
+        p.generateRandomXactions(n)
 
 
